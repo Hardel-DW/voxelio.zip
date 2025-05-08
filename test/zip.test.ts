@@ -4,7 +4,7 @@ import { fileHeader, fileData, dataDescriptor, centralHeader, zip64ExtraField, c
 import type { ZipFileDescription, ZipFolderDescription } from "../src/input.ts"
 import type { Metadata } from "../src/metadata.ts"
 
-const BufferFromHex = (hex: string) => new Uint8Array(Array.from(hex.matchAll(/.{2}/g), ([s]) => parseInt(s, 16)))
+const BufferFromHex = (hex: string) => new Uint8Array(Array.from(hex.matchAll(/.{2}/g), ([s]) => Number.parseInt(s, 16)))
 
 const zipSpec = Deno.readFileSync("./test/APPNOTE.TXT")
 const specName = new TextEncoder().encode("APPNOTE.TXT")

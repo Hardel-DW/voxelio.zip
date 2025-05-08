@@ -1,2 +1,2 @@
-import { downloadZip } from "./index.ts"
-export default downloadZip
+import { downloadZip } from "./index.ts";
+export default downloadZip;
