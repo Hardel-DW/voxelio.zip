@@ -1,6 +1,7 @@
 import "./polyfills.ts";
 import { type BufferLike, ReadableFromIterator, type StreamLike, normalizeInput } from "./input.ts";
 import { normalizeMetadata } from "./metadata.ts";
+import { extractZip } from "./unzip.ts";
 import { type ForAwaitable, contentLength, loadFiles } from "./zip.ts";
 
 /** The file name, modification date and size will be read from the input;
@@ -77,9 +78,11 @@ function normalizeArgs(file: InputWithMeta | InputWithSizeMeta | InputWithoutMet
 }
 
 function* mapMeta(files: Iterable<InputWithMeta | InputWithSizeMeta | JustMeta | InputFolder>) {
-    // @ts-ignore type inference isn't good enough for this… yet…
-    // but rewriting the code to be more explicit would make it longer
-    for (const file of files) yield normalizeMetadata(...normalizeArgs(file)[0]);
+    for (const file of files) {
+        // @ts-ignore type inference isn't good enough for this… yet…
+        // but rewriting the code to be more explicit would make it longer
+        yield normalizeMetadata(...normalizeArgs(file)[0]);
+    }
 }
 
 function mapFiles(files: ForAwaitable<InputWithMeta | InputWithSizeMeta | InputWithoutMeta | InputFolder>) {
@@ -144,3 +147,10 @@ export function makeZip(files: ForAwaitable<InputWithMeta | InputWithSizeMeta | 
     const mapped = mapFiles(files);
     return ReadableFromIterator(loadFiles(mapped, options), mapped);
 }
+
+/**
+ * Extracts files from a ZIP using a Uint8Array.
+ * @param data The ZIP file content as a Uint8Array
+ * @returns An object containing file paths and their contents
+ */
+export { extractZip };
