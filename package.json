@@ -1,6 +1,6 @@
 {
-    "name": "client-zip",
-    "version": "2.5.0",
+    "name": "@voxelio/zip",
+    "version": "3.0.0",
     "description": "A tiny and fast client-side streaming ZIP generator",
     "browser": "index.js",
     "module": "index.js",
@@ -12,7 +12,6 @@
     "scripts": {
         "start": "npm run build:module && npm run build:worker",
         "build:module": "esbuild --target=es2020 --bundle src/index.ts --format=esm | terser --config-file terser.json --module -o index.js",
-        "build:worker": "esbuild --target=es2020 --bundle src/worker.ts --format=iife --global-name=downloadZip | terser --config-file terser.json -o worker.js",
         "test": "deno test --allow-read test/",
         "lint": "tsc --project tsconfig.json --noEmit",
         "biome:format": "biome format --write ./src",
@@ -21,10 +20,11 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:Touffy/client-zip.git"
+        "url": "git@github.com:Hardel-DW/voxelio.zip.git"
     },
     "keywords": ["zip", "stream", "browser", "zip64"],
     "author": "David Junger <tffy@free.fr>",
+    "maintainers": ["Hardel-DW"],
     "license": "MIT",
     "devDependencies": {
         "@biomejs/biome": "^1.9.4",
