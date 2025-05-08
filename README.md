@@ -38,3 +38,66 @@ Note that this fork has not yet been tested on all browsers!!!!!
 
 I need to remember to remove my mock that comes from another project, for
 something cleaner.
+
+### Read Zip :
+
+You can import the `extractZip` function from the package. The function returns
+a promise that resolves to an object containing file paths as keys and their
+contents as Uint8Arrays.
+
+```ts
+import { extractZip } from "@voxelio/zip";
+```
+
+The function signature is the following :
+
+```ts
+export declare function extractZip(
+  data: Uint8Array,
+): Promise<Record<string, Uint8Array>>;
+```
+
+### Create Zip :
+
+You can import the `downloadZip` function from the package.
+
+```ts
+import { downloadZip } from "@voxelio/zip";
+```
+
+The function signature is the following :
+
+```ts
+function downloadZip(
+  files: ForAwaitable<
+    InputWithMeta | InputWithSizeMeta | InputWithoutMeta | InputFolder
+  >,
+  options?: Options,
+): Response;
+```
+
+You can use the `downloadZip` function to create a zip file from a list of
+files.
+
+```ts
+const zip = downloadZip([
+  { name: "file.txt", content: "Hello, world!" },
+]);
+```
+
+Or if your date is a `Uint8Array`, you can use a Simple Stream :
+
+```ts
+const exampleFile ... (In Uint8Array)
+
+const foo = new ReadableStream({
+  start(controller) {
+    controller.enqueue(exampleFile);
+    controller.close();
+  },
+});
+
+const files: InputWithoutMeta[] = [{name: "foo.txt", input: foo}];
+
+const zip = downloadZip(files);
+```
