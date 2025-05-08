@@ -1,6 +1,6 @@
 {
     "name": "@voxelio/zip",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "A tiny and fast client-side streaming ZIP generator",
     "browser": "index.js",
     "module": "index.js",
@@ -10,7 +10,7 @@
         ".": "./index.js"
     },
     "scripts": {
-        "start": "npm run build:module && npm run build:worker",
+        "start": "npm run build:module",
         "build:module": "esbuild --target=es2020 --bundle src/index.ts --format=esm | terser --config-file terser.json --module -o index.js",
         "test": "deno test --allow-read test/",
         "lint": "tsc --project tsconfig.json --noEmit",
