@@ -83,3 +83,12 @@ export declare function makeZip(
     >,
     options?: Options,
 ): ReadableStream<Uint8Array>;
+
+/**
+ * Extracts files from a ZIP using a Uint8Array.
+ * @param data The ZIP file content as a Uint8Array
+ * @returns An object containing file paths and their contents
+ */
+export declare function extractZip(
+    data: Uint8Array,
+): Promise<Record<string, Uint8Array>>;
