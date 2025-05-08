@@ -39,17 +39,32 @@ Note that this fork has not yet been tested on all browsers!!!!!
 I need to remember to remove my mock that comes from another project, for
 something cleaner.
 
-### Read Zip :
+# Function for Read a Zip :
 
 You can import the `extractZip` function from the package. The function returns
 a promise that resolves to an object containing file paths as keys and their
 contents as Uint8Arrays.
 
+The parameter is a `Uint8Array` that contains the zip file. You can get it from
+a file input or any other way. And transform it into a `Uint8Array` with the
+`Uint8Array` class. e.g.
+
 ```ts
 import { extractZip } from "@voxelio/zip";
+
+const exempleInput = document.getElementById("file-input") as HTMLInputElement;
+const files = await extractZip(
+  new Uint8Array(await exempleInput.files[0].arrayBuffer()),
+);
 ```
 
-The function signature is the following :
+The function signature is the following : Parameter :
+
+- `data`: The zip file content as a `Uint8Array`
+
+Return :
+
+- The object containing file paths as keys and their contents as `Uint8Arrays`
 
 ```ts
 export declare function extractZip(
@@ -57,7 +72,14 @@ export declare function extractZip(
 ): Promise<Record<string, Uint8Array>>;
 ```
 
-### Create Zip :
+Tricks to transform a Uint8Array to a Text or JSON :
+
+```ts
+const text = new TextDecoder().decode(data);
+const json = JSON.parse(text);
+```
+
+# Function for Create a Zip :
 
 You can import the `downloadZip` function from the package.
 
